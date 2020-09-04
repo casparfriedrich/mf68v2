@@ -1,0 +1,6 @@
+if BOARD_ATSAMD21G_R3_BREAKOUT
+
+config BOARD
+	default "atsamd21g_r3_breakout"
+
+endif # BOARD_ATSAMD21G_R3_BREAKOUT

@@ -1,0 +1,183 @@
+/dts-v1/;
+
+#include <atmel/samd21.dtsi>
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+	model = "ATSAMD21G R3 Breakout";
+	compatible = "sparkfun,atsamd21g_r3_breakout", "atmel,samd21g18a", "atmel,samd21";
+
+	chosen {
+		zephyr,code-partition = &slot0_partition;
+		zephyr,console = &sercom5;
+		zephyr,flash = &flash0;
+		zephyr,shell-uart = &sercom5;
+		zephyr,sram = &sram0;
+	};
+
+	aliases {
+		led0 = &led_tx;
+		led1 = &led_rx;
+		btn0 = &btn0;
+		backlight = &backlight;
+		drive0 = &drive0;
+		drive1 = &drive1;
+		drive2 = &drive2;
+		drive3 = &drive3;
+		drive4 = &drive4;
+		drive5 = &drive5;
+		drive6 = &drive6;
+		drive7 = &drive7;
+		sense0 = &sense0;
+		sense1 = &sense1;
+		sense2 = &sense2;
+		sense3 = &sense3;
+		sense4 = &sense4;
+		sense5 = &sense5;
+		sense6 = &sense6;
+		sense7 = &sense7;
+		sense8 = &sense8;
+	};
+
+	leds {
+		compatible = "gpio-leds";
+
+		led_tx: led_tx {
+			gpios = <&porta 27 (GPIO_DIR_OUT | GPIO_ACTIVE_LOW)>;
+			label = "LED_TX";
+		};
+
+		led_rx: led_rx {
+			gpios = <&portb 3 (GPIO_DIR_OUT | GPIO_ACTIVE_LOW)>;
+			label = "LED_RX";
+		};
+
+		backlight: backlight {
+			gpios = <&porta 7 GPIO_DIR_OUT>;
+			label = "LED_BACKLIGHT";
+		};
+
+		drive0: drive0 {
+			gpios = <&porta 18 (GPIO_DIR_OUT | GPIO_ACTIVE_LOW)>;
+			label = "Drive0";
+		};
+
+		drive1: drive1 {
+			gpios = <&porta 16 (GPIO_DIR_OUT | GPIO_ACTIVE_LOW)>;
+			label = "Drive1";
+		};
+
+		drive2: drive2 {
+			gpios = <&porta 19 (GPIO_DIR_OUT | GPIO_ACTIVE_LOW)>;
+			label = "Drive2";
+		};
+
+		drive3: drive3 {
+			gpios = <&porta 17 (GPIO_DIR_OUT | GPIO_ACTIVE_LOW)>;
+			label = "Drive3";
+		};
+
+		drive4: drive4 {
+			gpios = <&porta 2 (GPIO_DIR_OUT | GPIO_ACTIVE_LOW)>;
+			label = "Drive4";
+		};
+
+		drive5: drive5 {
+			gpios = <&portb 8 (GPIO_DIR_OUT | GPIO_ACTIVE_LOW)>;
+			label = "Drive5";
+		};
+
+		drive6: drive6 {
+			gpios = <&portb 9 (GPIO_DIR_OUT | GPIO_ACTIVE_LOW)>;
+			label = "Drive6";
+		};
+
+		drive7: drive7 {
+			gpios = <&porta 4 (GPIO_DIR_OUT | GPIO_ACTIVE_LOW)>;
+			label = "Drive7";
+		};
+	};
+
+	buttons {
+		compatible = "gpio-keys";
+
+		btn0: btn0 {
+			gpios = <&porta 3 (GPIO_DIR_IN | GPIO_PULL_UP)>;
+			label = "Button";
+		};
+
+		sense0: sense0 {
+			gpios = <&porta 10 (GPIO_DIR_IN | GPIO_PULL_UP)>;
+			label = "Sense0";
+		};
+
+		sense1: sense1 {
+			gpios = <&porta 11 (GPIO_DIR_IN | GPIO_PULL_UP)>;
+			label = "Sense1";
+		};
+
+		sense2: sense2 {
+			gpios = <&porta 14 (GPIO_DIR_IN | GPIO_PULL_UP)>;
+			label = "Sense2";
+		};
+
+		sense3: sense3 {
+			gpios = <&porta 9 (GPIO_DIR_IN | GPIO_PULL_UP)>;
+			label = "Sense3";
+		};
+
+		sense4: sense4 {
+			gpios = <&porta 8 (GPIO_DIR_IN | GPIO_PULL_UP)>;
+			label = "Sense4";
+		};
+
+		sense5: sense5 {
+			gpios = <&porta 15 (GPIO_DIR_IN | GPIO_PULL_UP)>;
+			label = "Sense5";
+		};
+
+		sense6: sense6 {
+			gpios = <&porta 20 (GPIO_DIR_IN | GPIO_PULL_UP)>;
+			label = "Sense6";
+		};
+
+		sense7: sense7 {
+			gpios = <&porta 21 (GPIO_DIR_IN | GPIO_PULL_UP)>;
+			label = "Sense7";
+		};
+
+		sense8: sense8 {
+			gpios = <&porta 6 (GPIO_DIR_IN | GPIO_PULL_UP)>;
+			label = "Sense8";
+		};
+	};
+};
+
+&cpu0 {
+	clock-frequency = <48000000>;
+};
+
+&sercom5 {
+	status = "okay";
+	compatible = "atmel,sam0-uart";
+	current-speed = <115200>;
+	rxpo = <3>;
+	txpo = <1>;
+};
+
+&usb0 {
+	status = "okay";
+};
+
+&flash0 {
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		slot0_partition: partition@0 {
+			label = "image-0";
+			reg = <0x00000000 0x40000>;
+		};
+	};
+};
